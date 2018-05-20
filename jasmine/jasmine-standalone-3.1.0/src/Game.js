@@ -16,3 +16,20 @@ Game.prototype.addCompleteFrame = function(){
   score = (this.frame.rolls[0] + this.frame.rolls[1]);
   this.frames.push(score);
 };
+
+Game.prototype.isFrameComplete = function(){
+  if (this.frame.rolls.length === 2) {
+    return true;
+  } else if (this.isStrike()) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+Game.prototype.nextFrame = function(){
+  if (this.isFrameComplete()) {
+    this.addCompleteFrame();
+    this.frame = new Frame;
+  };
+};

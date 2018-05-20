@@ -48,4 +48,43 @@ describe('Game', function(){
       expect(game.frames).toContain(5);
     });
   });
+
+  describe('#isFrameComplete', function(){
+    it('returns true when standard two rolls are taken', function(){
+      game.frame.roll(3);
+      game.frame.roll(2);
+      expect(game.isFrameComplete()).toEqual(true);
+    });
+    it ('returns true when a strike is rolled', function(){
+      game.frame.roll(10);
+      expect(game.isFrameComplete()).toEqual(true);
+    });
+    it('returns false when one roll less than 10 is taken', function(){
+      game.frame.roll(7);
+      expect(game.isFrameComplete()).toEqual(false);
+    });
+    it('returns false when no roll is taken', function(){
+      expect(game.isFrameComplete()).toEqual(false);
+    });
+  });
+
+  describe('#nextFrame', function(){
+    it('sets up new frame when current frame is complete', function(){
+      game.frame.roll(3);
+      game.frame.roll(4);
+      game.nextFrame();
+      expect(game.frame.rolls.length).toEqual(0);
+    });
+    it('calls the addCompleteFrame function', function(){
+      game.frame.roll(3);
+      game.frame.roll(4);
+      game.nextFrame();
+    });
+    // it('sets up new frame when current frame is complete', function(){
+    //   game.frame.roll(3);
+    //   game.frame.roll(4);
+    //   game.nextFrame();
+    //   expect(game.addCompleteFrame).toHaveBeenCalled();
+    // });
+  });
 });
