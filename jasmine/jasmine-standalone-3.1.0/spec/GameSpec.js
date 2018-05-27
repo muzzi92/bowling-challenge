@@ -75,16 +75,14 @@ describe('Game', function(){
       game.nextFrame();
       expect(game.frame.rolls.length).toEqual(0);
     });
-    it('calls the addCompleteFrame function', function(){
+    it('sets up new frame when current frame is complete', function(){
       game.frame.roll(3);
       game.frame.roll(4);
+      spyOn(game, 'addCompleteFrame');
       game.nextFrame();
+      expect(game.addCompleteFrame).toHaveBeenCalled();
     });
-    // it('sets up new frame when current frame is complete', function(){
-    //   game.frame.roll(3);
-    //   game.frame.roll(4);
-    //   game.nextFrame();
-    //   expect(game.addCompleteFrame).toHaveBeenCalled();
-    // });
   });
+
+
 });
