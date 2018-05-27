@@ -14,3 +14,19 @@ Frame.prototype.roll = function(numberOfSkittlesHit){
     this.rolls.push(numberOfSkittlesHit);
   }
 };
+
+Frame.prototype.isStrike = function(){
+   return (this.rolls[0] === 10) ? true : false;
+};
+
+Frame.prototype.isSpare = function(){
+  return (this.rolls[0] + this.rolls[1] === 10) ? true : false;
+};
+
+Frame.prototype.score = function(){
+  if (this.rolls[1]) {
+    return this.rolls[0] + this.rolls[1];
+  } else {
+    return this.rolls[0];
+  }
+}

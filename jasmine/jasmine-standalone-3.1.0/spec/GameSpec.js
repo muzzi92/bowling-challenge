@@ -16,36 +16,12 @@ describe('Game', function(){
     });
   });
 
-  describe('#isStrike', function(){
-    it('Returns true if a strike is rolled', function(){
-      game.frame.roll(10);
-      expect(game.isStrike()).toEqual(true);
-    });
-    it('Returns false if a strike is not rolled', function(){
-      game.frame.roll(5);
-      expect(game.isStrike()).toEqual(false);
-    });
-  });
-
-  describe('#isSpare', function(){
-    it('Returns true if a spare is rolled', function(){
-      game.frame.roll(4);
-      game.frame.roll(6);
-      expect(game.isSpare()).toEqual(true);
-    });
-    it('Returns false if a spare is not rolled', function(){
-      game.frame.roll(3);
-      game.frame.roll(2);
-      expect(game.isSpare()).toEqual(false);
-    });
-  });
-
   describe('#addCompleteFrame', function(){
     it('Adds total score of single frame to the frames array', function(){
       game.frame.roll(3);
       game.frame.roll(2);
       game.addCompleteFrame();
-      expect(game.frames).toContain(5);
+      expect(game.frames).toContain(game.frame);
     });
   });
 
@@ -83,6 +59,41 @@ describe('Game', function(){
       expect(game.addCompleteFrame).toHaveBeenCalled();
     });
   });
+
+  describe('#bowl', function(){
+    it("calls the frame's roll function", function(){
+      spyOn(game.frame, 'roll');
+      game.bowl();
+      expect(game.frame.roll).toHaveBeenCalled();
+    });
+    it('calls the nextFrame function', function(){
+      spyOn(game, 'nextFrame');
+      game.bowl();
+      expect(game.nextFrame).toHaveBeenCalled();
+    })
+  })
+
+  describe('#totalScore', function(){
+    it('tallies a normal game', function(){
+      for (var i = 0; i < 20; i++) { game.bowl(3) };
+      expect(game.totalScore()).toEqual(60);
+    });
+    it('tallies a game with a strike bonus in it', function(){
+      for (var i = 0; i < 16; i++) { game.bowl(3) };
+      game.bowl(10);
+      game.bowl(3);
+      game.bowl(3);
+      expect(game.totalScore()).toEqual(70);
+    });
+    it('tallies a game with a spare bonus in it', function(){
+      for (var i = 0; i < 16; i++) { game.bowl(3) };
+      game.bowl(5);
+      game.bowl(5);
+      game.bowl(3);
+      game.bowl(3);
+      expect(game.totalScore()).toEqual(67);
+    });
+  })
 
 
 });
