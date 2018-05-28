@@ -93,15 +93,21 @@ describe('Game', function(){
       game.bowl(3);
       expect(game.totalScore()).toEqual(67);
     });
-    // it('tallies a game with multiple strike bonuses in a row', function(){
-    //   game.bowl(10);
-    //   game.bowl(10);
-    //   for (var i = 0; i < 16; i++) { game.bowl(3) };
-    //   expect(game.totalScore()).toEqual(87);
-    //   for (var i = 0; i < game.frames.length; i++){
-    //     console.log(game.frames[i].rolls)
-    //   }
-    // });
-  })
-
+    it('tallies a game with multiple strike bonuses in a row', function(){
+      game.bowl(10);
+      game.bowl(10);
+      for (var i = 0; i < 16; i++) { game.bowl(3) };
+      expect(game.totalScore()).toEqual(87);
+    });
+    it('tallies a game with multiple spare bonuses in a row', function(){
+      game.bowl(5);
+      game.bowl(5);
+      game.bowl(5);
+      game.bowl(5);
+      game.bowl(5);
+      game.bowl(5);
+      for (var i = 0; i < 14; i++) { game.bowl(3) };
+      expect(game.totalScore()).toEqual(85);
+    });
+  });
 });

@@ -1,6 +1,13 @@
 function Frame(){
   this.skittles = 10;
   this.rolls = [];
+  this.score = function() {
+    if (this.rolls[1]) {
+      return this.rolls[0] + this.rolls[1];
+    } else {
+      return this.rolls[0];
+    }
+  }
 };
 
 Frame.prototype.roll = function(numberOfSkittlesHit){
@@ -22,11 +29,3 @@ Frame.prototype.isStrike = function(){
 Frame.prototype.isSpare = function(){
   return (this.rolls[0] + this.rolls[1] === 10) ? true : false;
 };
-
-Frame.prototype.score = function(){
-  if (this.rolls[1]) {
-    return this.rolls[0] + this.rolls[1];
-  } else {
-    return this.rolls[0];
-  }
-}

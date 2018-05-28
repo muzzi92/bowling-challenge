@@ -34,14 +34,14 @@ Game.prototype.bowl = function(num){
 Game.prototype.totalScore = function(){
   var score = 0
   for (var i = 0; i < this.frames.length; i++){
-    if (this.frames[i].isStrike()) {
-      this.frames[i+1].rolls[0] += this.frames[i+1].rolls[0];
-      this.frames[i+1].rolls[1] += this.frames[i+1].rolls[1];
-      // this doesn't work when two strikes in a row as rolls[1] won't exist
+    if (this.frames[i].isStrike() && this.frames[i+1].isStrike()) {
+      this.frames[i].rolls[0] += (this.frames[i+1].rolls[0] + this.frames[i+2].rolls[0]);
+    } else if (this.frames[i].isStrike()) {
+      this.frames[i].rolls[0] += (this.frames[i+1].rolls[0] + this.frames[i+1].rolls[1]);
     } else if (this.frames[i].isSpare()) {
-      this.frames[i+1].rolls[0] += this.frames[i+1].rolls[0];
+      this.frames[i].rolls[0] += this.frames[i+1].rolls[0];
     }
-    score += this.frames[i].score()
+    score += this.frames[i].score();
   }
   return score;
 };
