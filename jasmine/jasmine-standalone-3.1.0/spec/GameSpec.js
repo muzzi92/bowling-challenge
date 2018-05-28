@@ -93,7 +93,15 @@ describe('Game', function(){
       game.bowl(3);
       expect(game.totalScore()).toEqual(67);
     });
+    // it('tallies a game with multiple strike bonuses in a row', function(){
+    //   game.bowl(10);
+    //   game.bowl(10);
+    //   for (var i = 0; i < 16; i++) { game.bowl(3) };
+    //   expect(game.totalScore()).toEqual(87);
+    //   for (var i = 0; i < game.frames.length; i++){
+    //     console.log(game.frames[i].rolls)
+    //   }
+    // });
   })
-
 
 });

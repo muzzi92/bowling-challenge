@@ -37,6 +37,7 @@ Game.prototype.totalScore = function(){
     if (this.frames[i].isStrike()) {
       this.frames[i+1].rolls[0] += this.frames[i+1].rolls[0];
       this.frames[i+1].rolls[1] += this.frames[i+1].rolls[1];
+      // this doesn't work when two strikes in a row as rolls[1] won't exist
     } else if (this.frames[i].isSpare()) {
       this.frames[i+1].rolls[0] += this.frames[i+1].rolls[0];
     }
